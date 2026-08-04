@@ -76,3 +76,22 @@ git branch -M main
 git remote add origin <あなたのリポジトリURL>
 git push -u origin main
 ```
+
+## GitHub Pagesで公開する手順
+
+このリポジトリには `.github/workflows/deploy.yml` が入っており、`main` に push すると
+自動で `npm run build` → GitHub Pages への公開まで行われます。
+
+1. GitHubのリポジトリページで **Settings → Pages** を開く
+2. "Build and deployment" の **Source** を `GitHub Actions` に変更する
+3. `main` ブランチに push する（すでにpush済みなら、空コミットでもう一度pushでOK）
+4. **Actions** タブでワークフローが緑（成功）になったら、Pages の設定画面に表示される
+   URL（`https://<ユーザー名>.github.io/<リポジトリ名>/` の形式）にアクセスする
+
+### 画面が真っ白/何も表示されない場合によくある原因
+
+- **Source が `Deploy from a branch` のまま** になっている
+  → TypeScriptのソース(`src/main.tsx`)がそのまま配信されてもブラウザは実行できないため、
+    上記の手順2で `GitHub Actions` に変更する必要があります。
+- **Actionsが失敗している** → Actionsタブでログを確認してください。
+- **ブラウザのキャッシュ** → 一度スーパーリロード（Cmd/Ctrl+Shift+R）を試してください。
